@@ -4,6 +4,7 @@ import {
     ShippingRule, ShippingRulesMap, Review, HomeContent, AboutContent, ContactContent, GlobalSettings,
     CATEGORIES
 } from '../types';
+import { MOCK_PRODUCTS } from '../services/data';
 import toast from 'react-hot-toast';
 
 const DEFAULT_HOME_CONTENT: HomeContent = {
@@ -42,124 +43,6 @@ const DEFAULT_CONTACT_CONTENT: ContactContent = {
     mapUrl: '', 
     heroImage: '' 
 };
-
-const INITIAL_PRODUCTS: Product[] = [
-  {
-    id: 1,
-    name: "Kanchipuram Silk Saree - Royal Gold & Magenta",
-    category: "Saree",
-    subCategory: "Silk Saree",
-    price: 4999,
-    discountPrice: 3999,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Pure zari woven authentic Kanchipuram silk saree with vibrant color combinations and rich pallu work.",
-    material: "Pure Silk",
-    rating: 4.9,
-    stock: 15,
-    sizeStock: { "Free Size": 15 },
-    sizePrices: { "Free Size": 3999 },
-    showFreeSize: true
-  },
-  {
-    id: 2,
-    name: "Embroidered Nyra Cut Kurti Set",
-    category: "Kurtis Collections",
-    subCategory: "Nyra Cut Kurti",
-    price: 1899,
-    discountPrice: 1499,
-    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Graceful Nyra cut kurti set with intricate thread embroidery and soft viscose dupatta.",
-    material: "Viscose Rayon",
-    rating: 4.7,
-    stock: 25,
-    sizeStock: { "S": 5, "M": 10, "L": 8, "XL": 2 },
-    sizePrices: { "S": 1499, "M": 1499, "L": 1499, "XL": 1499 },
-    showFreeSize: false
-  },
-  {
-    id: 3,
-    name: "Premium Cotton Ankle Length Leggings",
-    category: "Bottom Wear",
-    subCategory: "Ankle Length",
-    price: 499,
-    discountPrice: 399,
-    image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "4-way stretch bio-washed combed cotton leggings for all-day comfort and perfect fit.",
-    material: "95% Cotton, 5% Spandex",
-    rating: 4.8,
-    stock: 50,
-    sizeStock: { "Free Size": 50 },
-    sizePrices: { "Free Size": 399 },
-    showFreeSize: true
-  },
-  {
-    id: 4,
-    name: "Handloom Organic Linen Cotton Saree",
-    category: "Saree",
-    subCategory: "Cotton Saree",
-    price: 2299,
-    discountPrice: 1799,
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Breathable handloom linen cotton saree featuring hand-block prints and tassel detailing.",
-    material: "Linen Cotton",
-    rating: 4.6,
-    stock: 20,
-    sizeStock: { "Free Size": 20 },
-    sizePrices: { "Free Size": 1799 },
-    showFreeSize: true
-  },
-  {
-    id: 5,
-    name: "Royal Anarkali 3-Piece Kurti Set",
-    category: "Kurtis Collections",
-    subCategory: "Three piece set",
-    price: 2999,
-    discountPrice: 2299,
-    image: "https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Full flair flared Anarkali with pant and heavy organza dupatta, perfect for festive occasions.",
-    material: "Chanderi Silk Blend",
-    rating: 4.9,
-    stock: 12,
-    sizeStock: { "M": 4, "L": 5, "XL": 3 },
-    sizePrices: { "M": 2299, "L": 2299, "XL": 2299 },
-    showFreeSize: false
-  },
-  {
-    id: 6,
-    name: "Bandhani Printed Pure Cotton Dupatta",
-    category: "Dupatta",
-    subCategory: "Printed Cotton Dupatta",
-    price: 399,
-    discountPrice: 299,
-    image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Vibrant ethnic Bandhani tie-dye printed dupatta with latkan border.",
-    material: "100% Cotton",
-    rating: 4.5,
-    stock: 35,
-    sizeStock: { "Free Size": 35 },
-    sizePrices: { "Free Size": 299 },
-    showFreeSize: true
-  }
-];
 
 const INITIAL_USERS: User[] = [
   {
@@ -217,8 +100,8 @@ const CMSContext = createContext<CMSContextType | undefined>(undefined);
 
 export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('rc_products');
-    return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
+    const saved = localStorage.getItem('rc_products_v2');
+    return saved ? JSON.parse(saved) : MOCK_PRODUCTS;
   });
 
   const [orders, setOrders] = useState<Order[]>(() => {
@@ -278,7 +161,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   // Sync to localStorage
-  useEffect(() => { localStorage.setItem('rc_products', JSON.stringify(products)); }, [products]);
+  useEffect(() => { localStorage.setItem('rc_products_v2', JSON.stringify(products)); }, [products]);
   useEffect(() => { localStorage.setItem('rc_orders', JSON.stringify(orders)); }, [orders]);
   useEffect(() => { localStorage.setItem('rc_users', JSON.stringify(users)); }, [users]);
   useEffect(() => { localStorage.setItem('rc_categories', JSON.stringify(categories)); }, [categories]);

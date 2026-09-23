@@ -95,7 +95,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClick={handleWishlist}
           className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 z-20 ${
             isLiked 
-              ? 'bg-red-500 text-white scale-110 shadow-lg' 
+              ? 'bg-blue-500 text-white scale-110 shadow-lg' 
               : 'bg-white text-krishna-900 hover:bg-gold-500 hover:text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0'
           }`}
         >
@@ -110,7 +110,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </div>
             )}
             {isOutOfStock && (
-               <div className="bg-red-600 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest shadow-sm">
+               <div className="bg-blue-600 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest shadow-sm">
                   Out of Stock
                </div>
             )}

@@ -34,14 +34,14 @@ const ConfirmModal: React.FC<{ isOpen: boolean, title: string, message: string, 
     return (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
             <div className="bg-white p-8 rounded-xl max-w-md w-full shadow-2xl text-center border border-gray-100">
-                <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
                     <AlertTriangle size={32} className="text-red-500" />
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-navy-900 font-sans">{title}</h3>
                 <p className="text-gray-500 mb-8 text-sm leading-relaxed">{message}</p>
                 <div className="flex justify-center gap-4">
                     <button onClick={onCancel} className="px-6 py-3 border border-gray-300 rounded text-gray-600 hover:bg-gray-50 text-xs font-bold uppercase tracking-wider transition-colors bg-white">Cancel</button>
-                    <button onClick={onConfirm} className="px-6 py-3 bg-red-600 text-white rounded hover:bg-red-700 text-xs font-bold uppercase tracking-wider shadow-lg transition-colors">Confirm</button>
+                    <button onClick={onConfirm} className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs font-bold uppercase tracking-wider shadow-lg transition-colors">Confirm</button>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@ const DashboardView = ({ setTab, setToast }: { setTab: (tab: any) => void, setTo
               {/* NEW RESET BUTTON */}
               <button 
                 onClick={() => setShowResetConfirm(true)}
-                className="bg-red-600 text-white px-4 py-2 rounded shadow hover:bg-red-700 transition-colors flex items-center text-xs font-bold uppercase tracking-wider"
+                className="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition-colors flex items-center text-xs font-bold uppercase tracking-wider"
               >
                   <RefreshCcw size={14} className="mr-2" /> Reset Data
               </button>
@@ -193,7 +193,7 @@ const DashboardView = ({ setTab, setToast }: { setTab: (tab: any) => void, setTo
                   <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-1">Low Stock Alert</p>
                   <h3 className="text-3xl font-bold text-navy-900">{lowStockProducts.length}</h3>
                </div>
-               <div className="w-10 h-10 rounded bg-red-50 flex items-center justify-center">
+               <div className="w-10 h-10 rounded bg-blue-50 flex items-center justify-center">
                    <AlertCircle className="text-red-500" size={20} />
                </div>
             </div>
@@ -225,7 +225,7 @@ const DashboardView = ({ setTab, setToast }: { setTab: (tab: any) => void, setTo
                                   <td className="p-3">
                                       <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${
                                           order.status === 'Delivered' ? 'bg-green-100 text-green-700' :
-                                          order.status === 'Cancelled' ? 'bg-red-100 text-red-700' :
+                                          order.status === 'Cancelled' ? 'bg-blue-100 text-red-700' :
                                           'bg-gold-100 text-gold-700'
                                       }`}>
                                           {order.status}
@@ -611,13 +611,13 @@ const UserManagerView = ({ setToast }: { setToast: (msg: string) => void }) => {
                                 <td className="p-4 font-medium text-navy-900">{u.name}</td>
                                 <td className="p-4 text-sm text-gray-600">{u.email}</td>
                                 <td className="p-4"><span className={`text-xs font-bold px-2 py-1 rounded ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-600'}`}>{u.role.toUpperCase()}</span></td>
-                                <td className="p-4"><span className={`text-xs font-bold px-2 py-1 rounded ${u.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{u.isActive ? 'Active' : 'Inactive'}</span></td>
+                                <td className="p-4"><span className={`text-xs font-bold px-2 py-1 rounded ${u.isActive ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-red-700'}`}>{u.isActive ? 'Active' : 'Inactive'}</span></td>
                                 <td className="p-4 text-sm text-gray-500">{new Date(u.joinDate).toLocaleDateString()}</td>
                                 <td className="p-4 text-right">
                                     {u.role !== 'admin' && (
                                         <div className="flex gap-2 justify-end">
                                             <button onClick={() => { toggleUserStatus(u.id); setToast(`User ${u.isActive ? 'Deactivated' : 'Activated'}`); }} className="text-blue-600 hover:bg-blue-50 p-2 rounded">{u.isActive ? <ToggleRight size={20} /> : <ToggleLeft size={20} />}</button>
-                                            <button onClick={() => setDeleteUserId(u.id)} className="text-red-600 hover:bg-red-50 p-2 rounded"><Trash2 size={18}/></button>
+                                            <button onClick={() => setDeleteUserId(u.id)} className="text-red-600 hover:bg-blue-50 p-2 rounded"><Trash2 size={18}/></button>
                                         </div>
                                     )}
                                 </td>
@@ -787,7 +787,7 @@ const ReviewsManagerView = ({ setToast }: { setToast: (msg: string) => void }) =
                                     </td>
                                     <td className="p-4 text-xs text-gray-500">{review.date}</td>
                                     <td className="p-4 text-right">
-                                        <button onClick={() => setDeleteReviewId(review.id)} className="text-red-600 hover:bg-red-50 p-2 rounded transition-colors"><Trash2 size={16} /></button>
+                                        <button onClick={() => setDeleteReviewId(review.id)} className="text-red-600 hover:bg-blue-50 p-2 rounded transition-colors"><Trash2 size={16} /></button>
                                     </td>
                                 </tr>
                             ))
@@ -1058,7 +1058,7 @@ const ProductManagerView = ({ setToast }: { setToast: (msg: string) => void }) =
                 </select>
             </div>
 
-            {selectedProducts.length > 0 && (<div className="bg-red-50 border border-red-100 p-4 rounded flex justify-between items-center"><span className="text-red-800 font-bold">{selectedProducts.length} Selected</span><button onClick={handleBulkDelete} className="text-red-600 hover:text-red-800 font-bold text-xs uppercase">Delete Selected</button></div>)}
+            {selectedProducts.length > 0 && (<div className="bg-blue-50 border border-red-100 p-4 rounded flex justify-between items-center"><span className="text-red-800 font-bold">{selectedProducts.length} Selected</span><button onClick={handleBulkDelete} className="text-red-600 hover:text-red-800 font-bold text-xs uppercase">Delete Selected</button></div>)}
             
             <div className="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-200 overflow-x-auto">
                 <table className="w-full text-left min-w-[800px]">
@@ -1088,7 +1088,7 @@ const ProductManagerView = ({ setToast }: { setToast: (msg: string) => void }) =
                                     </div>
                                 </td>
 
-                                <td className="p-4 text-right"><div className="flex gap-2 justify-end"><button onClick={() => openModal(p)} className="text-blue-600 p-2 hover:bg-blue-50 rounded"><Edit size={16}/></button><button onClick={() => setDeleteConfirm(p.id)} className="text-red-600 p-2 hover:bg-red-50 rounded"><Trash2 size={16}/></button></div></td>
+                                <td className="p-4 text-right"><div className="flex gap-2 justify-end"><button onClick={() => openModal(p)} className="text-blue-600 p-2 hover:bg-blue-50 rounded"><Edit size={16}/></button><button onClick={() => setDeleteConfirm(p.id)} className="text-red-600 p-2 hover:bg-blue-50 rounded"><Trash2 size={16}/></button></div></td>
                             </tr>
                         )})}
                     </tbody>
@@ -1171,7 +1171,7 @@ const ProductManagerView = ({ setToast }: { setToast: (msg: string) => void }) =
                          {editProduct.images && editProduct.images.map((img, idx) => (
                              <div key={idx} className="relative group border rounded overflow-hidden aspect-square">
                                  <img src={img} className="w-full h-full object-cover" alt={`Sub ${idx}`} />
-                                 <button onClick={() => removeAdditionalImage(idx)} className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"><X size={12} /></button>
+                                 <button onClick={() => removeAdditionalImage(idx)} className="absolute top-1 right-1 bg-blue-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"><X size={12} /></button>
                              </div>
                          ))}
                      </div>
@@ -1226,7 +1226,7 @@ const InvoiceTemplate = ({ order, globalSettings, contactContent, onClose }: { o
             </style>
             
             <div className="invoice-modal bg-white w-[210mm] min-h-[297mm] mx-auto shadow-2xl relative font-sans text-navy-900 flex flex-col box-border p-10 print:shadow-none">
-                <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-gray-100 hover:bg-red-100 rounded-full text-gray-600 hover:text-red-600 transition-all z-50 print:hidden border border-gray-200" title="Close Invoice"><X size={24} /></button>
+                <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-gray-100 hover:bg-blue-100 rounded-full text-gray-600 hover:text-red-600 transition-all z-50 print:hidden border border-gray-200" title="Close Invoice"><X size={24} /></button>
                 <div className="flex justify-between items-start mb-8"><div className="w-1/3">{globalSettings.logoUrl && (<img src={globalSettings.logoUrl} alt="Logo" className="h-24 w-auto object-contain mb-4" />)}</div><div className="w-1/2 text-right text-sm"><h2 className="font-bold text-lg uppercase mb-1">{globalSettings.siteName}</h2><div className="whitespace-pre-wrap text-gray-600 mb-1">{contactContent.address}</div><div className="text-gray-600">{contactContent.email}</div><div className="text-gray-600">{contactContent.phone}</div></div></div>
                 <div className="mb-8"><h1 className="text-3xl font-bold uppercase tracking-wider">INVOICE</h1></div>
                 <div className="grid grid-cols-3 gap-8 mb-8 text-sm"><div><h3 className="font-bold uppercase mb-2">Bill To:</h3>{order.billingDetails ? (<div className="text-gray-700 leading-relaxed"><p className="font-bold">{order.billingDetails.firstName} {order.billingDetails.lastName}</p><p>{order.billingDetails.address}</p><p>{order.billingDetails.city}, {order.billingDetails.district}</p><p>{order.billingDetails.state} - {order.billingDetails.pincode}</p><p className="mt-1">{order.billingDetails.phone}</p></div>) : <p>Guest</p>}</div><div><h3 className="font-bold uppercase mb-2">Ship To:</h3>{order.shippingDetails ? (<div className="text-gray-700 leading-relaxed"><p className="font-bold">{order.shippingDetails.firstName} {order.shippingDetails.lastName}</p><p>{order.shippingDetails.address}</p><p>{order.shippingDetails.city}, {order.shippingDetails.district}</p><p>{order.shippingDetails.state} - {order.shippingDetails.pincode}</p><p className="mt-1">{order.shippingDetails.phone}</p></div>) : <p>Same as Billing</p>}</div><div className="text-right"><div className="mb-2"><span className="font-bold block">Invoice Number:</span><span>{order.id.replace('ORD-', 'INV-')}</span></div><div className="mb-2"><span className="font-bold block">Invoice Date:</span><span>{order.date}</span></div><div className="mb-2"><span className="font-bold block">Order Number:</span><span>{order.id}</span></div><div className="mb-2"><span className="font-bold block">Payment Method:</span><span>{order.paymentMethod}</span></div></div></div>
@@ -1480,7 +1480,7 @@ const ManualOrderView = ({ setToast }: { setToast: (msg: string) => void }) => {
                                                 </button>
                                             )}
                                             {items.length > 1 && (
-                                                <button type="button" onClick={() => removeItem(idx)} className="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50"><X size={14} /></button>
+                                                <button type="button" onClick={() => removeItem(idx)} className="text-red-500 hover:text-red-700 p-1 rounded hover:bg-blue-50"><X size={14} /></button>
                                             )}
                                         </div>
                                     </div>
@@ -1506,7 +1506,7 @@ const ManualOrderView = ({ setToast }: { setToast: (msg: string) => void }) => {
                                                     <label className={labelCls}>Size {hasDefinedSizes && <span className="text-red-500">*</span>}</label>
                                                     <select
                                                         className={`border rounded px-2 py-1.5 text-sm text-navy-900 outline-none bg-white min-w-[70px] ${
-                                                            sizeRequired ? 'border-red-400 bg-red-50' : 'border-gray-300'
+                                                            sizeRequired ? 'border-red-400 bg-blue-50' : 'border-gray-300'
                                                         }`}
                                                         value={item.size}
                                                         onChange={e => updateItem(idx, 'size', e.target.value)}
@@ -1521,7 +1521,7 @@ const ManualOrderView = ({ setToast }: { setToast: (msg: string) => void }) => {
                                                     <input
                                                         type="number" min={1} max={availQty || 9999}
                                                         className={`border rounded px-2 py-1.5 text-sm text-navy-900 outline-none bg-white w-20 text-center ${
-                                                            overStock ? 'border-red-400 bg-red-50' : 'border-gray-300'
+                                                            overStock ? 'border-red-400 bg-blue-50' : 'border-gray-300'
                                                         }`}
                                                         value={item.qty}
                                                         onChange={e => updateItem(idx, 'qty', Number(e.target.value))}
@@ -1535,7 +1535,7 @@ const ManualOrderView = ({ setToast }: { setToast: (msg: string) => void }) => {
                                                 <div className="flex flex-col gap-1 ml-1">
                                                     <button type="button" onClick={() => updatePicker(idx, 'open', true)} className="text-[10px] text-blue-600 font-bold border border-blue-200 rounded px-2 py-1 bg-blue-50 hover:bg-blue-100 whitespace-nowrap">Change</button>
                                                     {items.length > 1 && (
-                                                        <button type="button" onClick={() => removeItem(idx)} className="text-[10px] text-red-600 font-bold border border-red-200 rounded px-2 py-1 bg-red-50 hover:bg-red-100 whitespace-nowrap flex items-center justify-center gap-0.5"><Trash2 size={10} /> Remove</button>
+                                                        <button type="button" onClick={() => removeItem(idx)} className="text-[10px] text-red-600 font-bold border border-red-200 rounded px-2 py-1 bg-blue-50 hover:bg-blue-100 whitespace-nowrap flex items-center justify-center gap-0.5"><Trash2 size={10} /> Remove</button>
                                                     )}
                                                 </div>
                                             </div>
@@ -1797,8 +1797,8 @@ const OrderManagerView = ({ setToast }: { setToast: (msg: string) => void }) => 
                                    <td className="p-4 text-sm text-gray-500">{o.date}</td>
                                    <td className="p-4 font-bold text-navy-900">₹{o.total}</td>
                                    <td className="p-4 text-sm text-gray-500">{o.items.length} Items</td>
-                                   <td className="p-4"><select value={o.status} disabled={o.status === 'Cancelled'} onChange={(e) => { updateOrderStatus(o.id, e.target.value as Order['status']); setToast('Order Updated'); }} className={`border rounded px-2 py-1 text-sm font-bold outline-none cursor-pointer bg-white ${o.status === 'Delivered' ? 'text-green-600 border-green-200 bg-green-50' : o.status === 'Cancelled' ? 'text-red-600 border-red-200 bg-red-50' : 'text-gold-600 border-gold-200 bg-gold-50'}`}>{['Pending','Processing','Shipped','Delivered','Cancelled'].map(s=><option key={s} value={s}>{s}</option>)}</select></td>
-                                   <td className="p-4 text-right"><div className="flex gap-2 justify-end"><button onClick={() => setSelectedOrder(o)} className="text-blue-600 hover:bg-blue-50 p-2 rounded border border-blue-100 bg-white font-bold text-xs uppercase">View</button><button onClick={() => setDeleteConfirmId(o.id)} className="text-red-600 hover:bg-red-50 p-2 rounded"><Trash2 size={16}/></button></div></td>
+                                   <td className="p-4"><select value={o.status} disabled={o.status === 'Cancelled'} onChange={(e) => { updateOrderStatus(o.id, e.target.value as Order['status']); setToast('Order Updated'); }} className={`border rounded px-2 py-1 text-sm font-bold outline-none cursor-pointer bg-white ${o.status === 'Delivered' ? 'text-green-600 border-green-200 bg-green-50' : o.status === 'Cancelled' ? 'text-red-600 border-red-200 bg-blue-50' : 'text-gold-600 border-gold-200 bg-gold-50'}`}>{['Pending','Processing','Shipped','Delivered','Cancelled'].map(s=><option key={s} value={s}>{s}</option>)}</select></td>
+                                   <td className="p-4 text-right"><div className="flex gap-2 justify-end"><button onClick={() => setSelectedOrder(o)} className="text-blue-600 hover:bg-blue-50 p-2 rounded border border-blue-100 bg-white font-bold text-xs uppercase">View</button><button onClick={() => setDeleteConfirmId(o.id)} className="text-red-600 hover:bg-blue-50 p-2 rounded"><Trash2 size={16}/></button></div></td>
                                </tr>
                            ))
                        )}
@@ -1892,7 +1892,7 @@ const Admin: React.FC = () => {
           <div className="p-8 border-b border-white/10 flex-shrink-0 hidden md:block"><h2 className="text-2xl font-serif font-bold text-gold-500 tracking-wide">{globalSettings.siteName}</h2><p className="text-sm tracking-[0.2em] text-gray-400 mt-2">Admin Console</p></div>
           <div className="p-4 flex justify-between items-center md:hidden border-b border-white/10"><span className="font-serif font-bold text-gold-500">Menu</span><button onClick={() => setIsSidebarOpen(false)}><X size={24} /></button></div>
           <nav className="p-4 space-y-2 flex-1 overflow-y-auto custom-scrollbar">{[{ id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard }, { id: 'global', label: 'Global Settings', icon: Globe }, { id: 'home', label: 'Home Content', icon: FileText }, { id: 'about', label: 'About Content', icon: FileText }, { id: 'contact', label: 'Contact Content', icon: FileText }, { id: 'categories', label: 'Categories', icon: Layers }, { id: 'products', label: 'Products', icon: Package }, { id: 'users', label: 'Users', icon: Users }, { id: 'orders', label: 'Orders', icon: ShoppingCart }, { id: 'manual-orders', label: 'Manual Orders', icon: ClipboardList }, { id: 'reviews', label: 'Reviews', icon: MessageSquare }, { id: 'settings', label: 'Admin Access', icon: Settings }].map((item) => (<button key={item.id} onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }} className={`w-full flex items-center p-4 rounded-lg transition-all duration-300 font-medium ${activeTab === item.id ? 'bg-white text-navy-900 shadow-lg transform scale-105' : 'hover:bg-white/5 text-gray-400 hover:text-white'}`}><item.icon size={18} className={`mr-3 ${activeTab === item.id ? 'text-gold-600' : 'text-gray-400'}`} /> <span className="tracking-wide text-sm">{item.label}</span></button>))}</nav>
-          <div className="p-4 border-t border-white/10 flex-shrink-0 space-y-2"><button onClick={() => navigate('/')} className="w-full flex items-center p-3 rounded hover:bg-navy-800 text-gold-400 transition-colors font-bold text-xs uppercase tracking-wider"><ArrowLeft size={18} className="mr-3" /> Back to Website</button><button onClick={logout} className="w-full flex items-center p-3 rounded hover:bg-red-900/30 text-red-300 transition-colors"><LogOut size={18} className="mr-3" /> Logout</button></div>
+          <div className="p-4 border-t border-white/10 flex-shrink-0 space-y-2"><button onClick={() => navigate('/')} className="w-full flex items-center p-3 rounded hover:bg-navy-800 text-gold-400 transition-colors font-bold text-xs uppercase tracking-wider"><ArrowLeft size={18} className="mr-3" /> Back to Website</button><button onClick={logout} className="w-full flex items-center p-3 rounded hover:bg-blue-900/30 text-red-300 transition-colors"><LogOut size={18} className="mr-3" /> Logout</button></div>
        </div>
        <div className="flex-1 p-4 pt-20 md:p-10 md:pt-10 overflow-y-auto h-full relative w-full">
            {activeTab === 'dashboard' && <DashboardView setTab={setActiveTab} setToast={setToastMsg} />}

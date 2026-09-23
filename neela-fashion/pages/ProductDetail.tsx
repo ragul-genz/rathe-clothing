@@ -329,7 +329,7 @@ const ProductDetail: React.FC = () => {
                   {/* Wishlist Button */}
                   <button 
                     onClick={handleWishlist}
-                    className={`w-14 h-full flex items-center justify-center border transition-all duration-300 ${isLiked ? 'border-red-500 text-red-500 bg-red-50' : 'border-gray-300 text-gray-400 hover:border-gold-600 hover:text-gold-600'}`}
+                    className={`w-14 h-full flex items-center justify-center border transition-all duration-300 ${isLiked ? 'border-red-500 text-red-500 bg-blue-50' : 'border-gray-300 text-gray-400 hover:border-gold-600 hover:text-gold-600'}`}
                     title={isLiked ? "Remove from Wishlist" : "Add to Wishlist"}
                   >
                      <Heart size={24} fill={isLiked ? "currentColor" : "none"} />

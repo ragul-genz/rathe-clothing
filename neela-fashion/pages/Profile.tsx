@@ -196,7 +196,7 @@ const Profile: React.FC = () => {
                                      </span>
                                  ) : order.status === 'Cancelled' ? (
                                     <div className="flex items-center gap-4">
-                                       <span className="flex items-center text-red-600 text-sm font-bold bg-red-50 px-3 py-1 rounded-full">
+                                       <span className="flex items-center text-red-600 text-sm font-bold bg-blue-50 px-3 py-1 rounded-full">
                                            <XCircle size={16} className="mr-2" /> Cancelled
                                        </span>
                                        {order.paymentMethod !== 'COD' && (
