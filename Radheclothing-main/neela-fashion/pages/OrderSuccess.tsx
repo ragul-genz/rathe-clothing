@@ -144,7 +144,7 @@ const OrderSuccess: React.FC = () => {
             </button>
             
             <a 
-                href={`https://wa.me/919943486303?text=Hello%20Radhe%20Clothing!%0A%0AI%20have%20just%20placed%20an%20order.%0A%0A*Order%20ID:*%20${orderId}%0A*Total:*%20%E2%82%B9${total}%0A*Payment%20Method:*%20${paymentMethod}%0A${transactionId ? `*Transaction%20ID:*%20${transactionId}%0A` : ''}%0APlease%20confirm%20my%20order.`}
+                href={`https://wa.me/919171696664?text=Hello%20Radhe%20Clothing!%0A%0AI%20have%20just%20placed%20an%20order.%0A%0A*Order%20ID:*%20${orderId}%0A*Total:*%20%E2%82%B9${total}%0A*Payment%20Method:*%20${paymentMethod}%0A${transactionId ? `*Transaction%20ID:*%20${transactionId}%0A` : ''}%0APlease%20confirm%20my%20order.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center px-8 py-3 bg-green-600 text-white font-bold uppercase text-xs tracking-widest hover:bg-green-700 transition-all duration-300 rounded-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5"

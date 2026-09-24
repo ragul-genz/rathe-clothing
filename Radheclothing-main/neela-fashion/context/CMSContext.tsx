@@ -26,8 +26,8 @@ const DEFAULT_GLOBAL_SETTINGS: GlobalSettings = {
     taxRate: 5,
     instagramUrl: 'https://instagram.com/radheclothing',
     youtubeUrl: 'https://youtube.com',
-    whatsappNumber: '+91 9876543210',
-    contactNumber: '+91 9876543210'
+    whatsappNumber: '+91 9171696664',
+    contactNumber: '+91 9171696664'
 };
 
 const DEFAULT_ABOUT_CONTENT: AboutContent = { 
@@ -37,9 +37,9 @@ const DEFAULT_ABOUT_CONTENT: AboutContent = {
 };
 
 const DEFAULT_CONTACT_CONTENT: ContactContent = { 
-    address: 'Radhe Clothing Plaza, Main Road', 
-    phone: '+91 9876543210', 
-    email: 'support@radheclothing.com', 
+    address: '139c, Anangoor Road, Komarapalayam, Namakkal-638183', 
+    phone: '+91 9171696664', 
+    email: 'radheclothingkpm@gmail.com', 
     mapUrl: '', 
     heroImage: '' 
 };
@@ -48,15 +48,15 @@ const INITIAL_USERS: User[] = [
   {
     id: '1',
     name: 'Radhe Admin',
-    email: 'admin@radheclothing.com',
+    email: 'radheclothingkpm@gmail.com',
     role: 'admin',
     isActive: true,
-    phone: '+91 9876543210',
-    address: 'Radhe Clothing House',
-    city: 'Chennai',
-    district: 'Chennai',
+    phone: '+91 9171696664',
+    address: '139c, Anangoor Road',
+    city: 'Komarapalayam',
+    district: 'Namakkal',
     state: 'Tamil Nadu',
-    pincode: '600001'
+    pincode: '638183'
   }
 ];
 
@@ -172,7 +172,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [adminCredentials, setAdminCredentials] = useState(() => {
     const saved = localStorage.getItem('rc_admin_creds');
-    return saved ? JSON.parse(saved) : { email: 'admin@radheclothing.com', pass: 'admin-radhe' };
+    return saved ? JSON.parse(saved) : { email: 'radheclothingkpm@gmail.com', pass: 'admin-radhe' };
   });
 
   // Sync to localStorage
