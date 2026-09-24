@@ -102,10 +102,7 @@ const CMSContext = createContext<CMSContextType | undefined>(undefined);
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem('rc_products_v2');
-    return saved ? JSON.parse(saved) : MOCK_PRODUCTS;
-  });
+  const [products, setProducts] = useState<Product[]>([]);
 
   const [orders, setOrders] = useState<Order[]>([]);
 
@@ -121,7 +118,21 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         console.error("Failed to fetch orders", err);
       }
     };
+
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/products`);
+        const data = await res.json();
+        if (data.success && data.products) {
+          setProducts(data.products);
+        }
+      } catch (err) {
+        console.error("Failed to fetch products", err);
+      }
+    };
+
     fetchOrders();
+    fetchProducts();
   }, []);
 
   const [users, setUsers] = useState<User[]>(() => {
@@ -176,7 +187,6 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   // Sync to localStorage
-  useEffect(() => { localStorage.setItem('rc_products_v2', JSON.stringify(products)); }, [products]);
   useEffect(() => { localStorage.setItem('rc_users', JSON.stringify(users)); }, [users]);
   useEffect(() => { localStorage.setItem('rc_categories', JSON.stringify(categories)); }, [categories]);
   useEffect(() => { localStorage.setItem('rc_shipping_rules', JSON.stringify(shippingRules)); }, [shippingRules]);
@@ -324,27 +334,63 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
   
   const addProduct = async (p: Product): Promise<boolean> => { 
-      const newId = products.length > 0 ? Math.max(...products.map(item => item.id)) + 1 : 1;
-      const newProduct = { ...p, id: newId };
-      setProducts(prev => [newProduct, ...prev]);
-      toast.success(`Added: ${p.name}`); 
-      return true;
+    try {
+      const res = await fetch(`${API_URL}/api/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(p)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setProducts(prev => [data.product, ...prev]);
+        toast.success(`Added: ${p.name}`); 
+        return true;
+      }
+      return false;
+    } catch {
+      toast.error("Failed to add product");
+      return false;
+    }
   };
 
   const updateProduct = async (id: number, p: Partial<Product>): Promise<boolean> => { 
+    try {
+      await fetch(`${API_URL}/api/products/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(p)
+      });
       setProducts(prev => prev.map(item => item.id === id ? { ...item, ...p } : item));
       toast.success("Product Updated!"); 
       return true;
+    } catch {
+      toast.error("Failed to update product");
+      return false;
+    }
   };
 
   const deleteProduct = async (id: number) => { 
+    try {
+      await fetch(`${API_URL}/api/products/${id}`, { method: 'DELETE' });
       setProducts(prev => prev.filter(p => p.id !== id));
       toast.success("Product Deleted!"); 
+    } catch {
+      toast.error("Failed to delete product");
+    }
   };
 
   const bulkDeleteProducts = async (ids: number[]) => { 
+    try {
+      await fetch(`${API_URL}/api/products/bulk-delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids })
+      });
       setProducts(prev => prev.filter(p => !ids.includes(p.id)));
       toast.success("Products Deleted!"); 
+    } catch {
+      toast.error("Failed to delete products");
+    }
   };
   
   const importProducts = async (newProducts: Partial<Product>[]) => {
