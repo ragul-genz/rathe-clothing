@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 
 const DEFAULT_HOME_CONTENT: HomeContent = {
     heroTitle: 'Radhe Clothing', heroSubtitle: 'Sacred Elegance & Timeless Luxury Fashion',
-    heroImage: '/woman_purple_saree_krishna_bg.jpg', marqueeText: ["Radhe Clothing", "Peacock Grace", "Royal Silk", "Heritage Handloom", "Krishna Elegance"],
+    heroImage: '/hero_krishna_blue.jpg', marqueeText: ["Radhe Clothing", "Peacock Grace", "Royal Silk", "Heritage Handloom", "Krishna Elegance"],
     sectionTitleTrends: 'Curated Collections', sectionTitleFeatured: 'Trending Grace', sectionTitleTestimonials: 'Voices of Radhe',
     testimonials: [
       { id: 1, text: "Absolutely stunning craftsmanship. The silk saree I ordered for the festival was beyond my expectations.", author: "Ananya S.", role: "Verified Buyer" },
