@@ -83,7 +83,9 @@ const ProductDetail: React.FC = () => {
   if (product?.showFreeSize === false) {
       activeSizes = activeSizes.filter(s => s !== 'Free Size');
   }
-  const currentSizeStock = selectedSize && product.sizeStock ? (product.sizeStock[selectedSize] || 0) : 0;
+  const currentSizeStock = selectedSize 
+      ? (product.sizeStock ? (product.sizeStock[selectedSize] || 0) : product.stock)
+      : 0;
   const isSizeSelected = !!selectedSize;
   
   // If size is selected, check specific stock. If not, check total stock just for visual.
@@ -259,7 +261,7 @@ const ProductDetail: React.FC = () => {
                   
                   <div className="flex flex-wrap gap-3">
                       {activeSizes.map(size => {
-                          const stockForSize = product.sizeStock ? (product.sizeStock[size] || 0) : 0;
+                          const stockForSize = product.sizeStock ? (product.sizeStock[size] || 0) : product.stock;
                           const isSizeDisabled = stockForSize === 0;
                           
                           return (
