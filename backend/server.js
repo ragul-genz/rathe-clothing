@@ -349,6 +349,16 @@ app.put('/api/orders/:id/status', async (req, res) => {
     catch (error) { res.status(500).json({ success: false }); }
 });
 
+app.put('/api/orders/:id/payment-status', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { paymentStatus } = req.body;
+        await Order.update({ paymentStatus }, { where: { id } });
+        res.json({ success: true });
+    }
+    catch (error) { res.status(500).json({ success: false }); }
+});
+
 app.put('/api/orders/:id/cancel', async (req, res) => {
     try {
         const { id } = req.params;
@@ -586,7 +596,7 @@ const startServer = async () => {
     try {
         await sequelize.authenticate();
         console.log('Database connected successfully.');
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
         
         if (typeof seedAdmin === 'function') await seedAdmin();
         if (typeof seedProducts === 'function') await seedProducts();

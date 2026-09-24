@@ -25,8 +25,16 @@ const Order = sequelize.define('Order', {
         defaultValue: 'Pending'
     },
     paymentMethod: {
-        type: DataTypes.STRING, // 'Prepaid' or 'COD'
+        type: DataTypes.STRING, // 'Prepaid' or 'COD' or 'Prepaid (PhonePe)'
         allowNull: false
+    },
+    paymentStatus: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    transactionId: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     items: {
         type: DataTypes.JSON, // Store array of cart items
