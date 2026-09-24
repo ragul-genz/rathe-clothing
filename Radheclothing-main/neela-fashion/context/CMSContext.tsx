@@ -9,13 +9,13 @@ import toast from 'react-hot-toast';
 
 const DEFAULT_HOME_CONTENT: HomeContent = {
     heroTitle: 'Radhe Clothing', heroSubtitle: 'Sacred Elegance & Timeless Luxury Fashion',
-    heroImage: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=80', marqueeText: ["Radhe Clothing", "Peacock Grace", "Royal Silk", "Heritage Handloom", "Krishna Elegance"],
+    heroImage: '/woman_purple_saree_krishna_bg.jpg', marqueeText: ["Radhe Clothing", "Peacock Grace", "Royal Silk", "Heritage Handloom", "Krishna Elegance"],
     sectionTitleTrends: 'Curated Collections', sectionTitleFeatured: 'Trending Grace', sectionTitleTestimonials: 'Voices of Radhe',
     testimonials: [
       { id: 1, text: "Absolutely stunning craftsmanship. The silk saree I ordered for the festival was beyond my expectations.", author: "Ananya S.", role: "Verified Buyer" },
       { id: 2, text: "Radhe Clothing has redefined luxury ethnic wear. The vibrant colors and embroidery are unmatched.", author: "Priya M.", role: "Fashion Enthusiast" },
       { id: 3, text: "Impeccable service and fabric quality. Will definitely buy again!", author: "Rohan K.", role: "Loyal Customer" },
-    ], trendImages: { large: '', topRight: '', bottomRight: '' }
+    ], trendImages: { large: '/original_chudidar_1.jpg', topRight: '/original_chudidar_2.jpg', bottomRight: '/green_floral_chudidar_1790158850906.jpg' }
 };
 
 const DEFAULT_GLOBAL_SETTINGS: GlobalSettings = { 

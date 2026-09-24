@@ -162,7 +162,7 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[800px]">
               {/* Large Feature */}
               <div className="md:col-span-2 md:row-span-2 relative overflow-hidden group rounded-sm cursor-pointer shadow-md">
-                  <img src={homeContent.trendImages.large || "https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1000"} alt="Royal Edit" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" />
+                  <img src={homeContent.trendImages.large || "/original_chudidar_1.jpg"} alt="Royal Edit" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-krishna-900/90 via-krishna-900/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500"></div>
                   <div className="absolute bottom-12 left-12 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       <h3 className="text-4xl font-serif italic mb-3">The Royal Edit</h3>
@@ -178,14 +178,14 @@ const Home: React.FC = () => {
                    <h3 className="text-3xl font-serif text-krishna-900 mb-3 relative z-10 font-bold">Everyday Grace</h3>
                    <p className="text-slate-600 mb-8 text-sm leading-relaxed max-w-xs relative z-10">Comfortable fabrics crafted for casual and festive occasions.</p>
                    <div className="flex gap-4 w-full overflow-hidden relative z-10">
-                      <img src={homeContent.trendImages.topRight || "https://images.unsplash.com/photo-1605763240004-7e93b172d754?w=600&q=80"} className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-2 transition-transform duration-500" alt="thumb" />
-                      <img src="https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=200&q=80" className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-4 transition-transform duration-500 delay-100" alt="thumb" />
+                      <img src={homeContent.trendImages.topRight || "/original_chudidar_2.jpg"} className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-2 transition-transform duration-500" alt="thumb" />
+                      <img src="/original_chudidar_3.jpg" className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-4 transition-transform duration-500 delay-100" alt="thumb" />
                    </div>
               </div>
 
               {/* Bottom Right */}
               <div className="md:col-span-2 relative overflow-hidden group rounded-sm shadow-md">
-                   <img src={homeContent.trendImages.bottomRight || "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=80&w=800"} alt="Silk" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" />
+                   <img src={homeContent.trendImages.bottomRight || "/green_floral_chudidar_1790158850906.jpg"} alt="Silk" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" />
                    <div className="absolute inset-0 bg-krishna-900/40 group-hover:bg-krishna-900/20 transition-colors duration-500"></div>
                    <div className="absolute inset-0 flex items-center justify-center">
                        <div className="border-2 border-white/40 backdrop-blur-md px-8 py-6 text-center transform transition-transform duration-500 group-hover:scale-105 rounded-sm">
