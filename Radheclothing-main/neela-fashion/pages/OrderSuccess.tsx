@@ -17,22 +17,27 @@ const OrderSuccess: React.FC = () => {
   }, []); // Run only once on mount
   
   const state = location.state as { 
-      orderId: string, 
-      total: string, 
-      items: CartItem[], 
-      billing: ShippingDetails,
-      shipping: ShippingDetails 
+      order: any; // Order type
+      orderId?: string, 
+      total?: string, 
+      items?: CartItem[], 
+      billing?: ShippingDetails,
+      shipping?: ShippingDetails 
   } | null;
 
   // Fallback to URL params if state is lost (e.g. redirect from payment gateway)
   const queryParams = new URLSearchParams(location.search);
-  const orderId = state?.orderId || queryParams.get('id') || 'ORD-XXXXX';
+  const orderObj = state?.order;
+  
+  const orderId = orderObj?.id || state?.orderId || queryParams.get('id') || 'ORD-XXXXX';
   const status = queryParams.get('status');
 
-  const total = state?.total || 'Paid Online';
-  const items = state?.items || [];
-  const billing = state?.billing;
-  const shipping = state?.shipping;
+  const total = orderObj?.total || state?.total || 'Paid Online';
+  const items = orderObj?.items || state?.items || [];
+  const billing = orderObj?.billingDetails || state?.billing;
+  const shipping = orderObj?.shippingDetails || state?.shipping;
+  const paymentMethod = orderObj?.paymentMethod || 'Online Payment';
+  const transactionId = orderObj?.transactionId || '';
 
   const handleDownloadPDF = async () => {
     if (invoiceRef.current) {
@@ -130,13 +135,22 @@ const OrderSuccess: React.FC = () => {
       </div>
 
       {/* Actions */}
-      <div className="mt-8 mb-12 flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="mt-8 mb-12 flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
             <button 
                 onClick={handleDownloadPDF} 
                 className="flex items-center justify-center px-8 py-3 border border-navy-900 bg-white text-navy-900 font-bold uppercase text-xs tracking-widest hover:bg-navy-900 hover:text-white transition-all duration-300 rounded-sm group shadow-lg"
             >
                 <Download size={16} className="mr-2 group-hover:scale-110 transition-transform" /> Download PDF
             </button>
+            
+            <a 
+                href={`https://wa.me/919943486303?text=Hello%20Radhe%20Clothing!%0A%0AI%20have%20just%20placed%20an%20order.%0A%0A*Order%20ID:*%20${orderId}%0A*Total:*%20%E2%82%B9${total}%0A*Payment%20Method:*%20${paymentMethod}%0A${transactionId ? `*Transaction%20ID:*%20${transactionId}%0A` : ''}%0APlease%20confirm%20my%20order.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-8 py-3 bg-green-600 text-white font-bold uppercase text-xs tracking-widest hover:bg-green-700 transition-all duration-300 rounded-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            >
+                WhatsApp Us
+            </a>
             
             <Link 
                 to="/shop" 

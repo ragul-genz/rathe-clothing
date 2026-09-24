@@ -81,11 +81,11 @@ interface CMSContextType {
   toggleUserStatus: (id: string) => void;
   addUser: (user: User) => void;
 
-  addOrder: (order: Order) => void; 
-  updateOrderStatus: (id: string, status: Order['status']) => void; 
-  updateOrderPaymentStatus: (id: string, paymentStatus: Order['paymentStatus']) => void;
-  cancelOrder: (id: string) => void;
-  deleteOrder: (id: string) => void;
+  addOrder: (order: Order) => Promise<void>; 
+  updateOrderStatus: (id: string, status: Order['status']) => Promise<void>; 
+  updateOrderPaymentStatus: (id: string, paymentStatus: Order['paymentStatus']) => Promise<void>;
+  cancelOrder: (id: string) => Promise<void>;
+  deleteOrder: (id: string) => Promise<void>;
 
   addReview: (review: Review) => void; 
   deleteReview: (id: string) => void;
@@ -99,16 +99,30 @@ interface CMSContextType {
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>(() => {
     const saved = localStorage.getItem('rc_products_v2');
     return saved ? JSON.parse(saved) : MOCK_PRODUCTS;
   });
 
-  const [orders, setOrders] = useState<Order[]>(() => {
-    const saved = localStorage.getItem('rc_orders');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/orders`);
+        const data = await res.json();
+        if (data.success && data.orders) {
+          setOrders(data.orders);
+        }
+      } catch (err) {
+        console.error("Failed to fetch orders", err);
+      }
+    };
+    fetchOrders();
+  }, []);
 
   const [users, setUsers] = useState<User[]>(() => {
     const saved = localStorage.getItem('rc_users');
@@ -163,7 +177,6 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   // Sync to localStorage
   useEffect(() => { localStorage.setItem('rc_products_v2', JSON.stringify(products)); }, [products]);
-  useEffect(() => { localStorage.setItem('rc_orders', JSON.stringify(orders)); }, [orders]);
   useEffect(() => { localStorage.setItem('rc_users', JSON.stringify(users)); }, [users]);
   useEffect(() => { localStorage.setItem('rc_categories', JSON.stringify(categories)); }, [categories]);
   useEffect(() => { localStorage.setItem('rc_shipping_rules', JSON.stringify(shippingRules)); }, [shippingRules]);
@@ -223,29 +236,71 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     toast.success("SubCategory Removed!");
   };
 
-  const addOrder = (order: Order) => {
-    setOrders(prev => [order, ...prev]);
-    toast.success("Order Placed Successfully!");
+  const addOrder = async (order: Order) => {
+    try {
+      const res = await fetch(`${API_URL}/api/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setOrders(prev => [data.order, ...prev]);
+        toast.success("Order Placed Successfully!");
+      } else {
+        toast.error("Failed to place order.");
+      }
+    } catch (err) {
+      toast.error("Network error placing order.");
+    }
   };
 
-  const updateOrderStatus = (id: string, status: Order['status']) => {
-    setOrders(prev => prev.map(o => o.id === id ? { ...o, status } : o));
-    toast.success("Order Status Updated!");
+  const updateOrderStatus = async (id: string, status: Order['status']) => {
+    try {
+      await fetch(`${API_URL}/api/orders/${id}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      setOrders(prev => prev.map(o => o.id === id ? { ...o, status } : o));
+      toast.success("Order Status Updated!");
+    } catch (err) {
+      toast.error("Failed to update status.");
+    }
   };
 
-  const updateOrderPaymentStatus = (id: string, paymentStatus: Order['paymentStatus']) => {
-    setOrders(prev => prev.map(o => o.id === id ? { ...o, paymentStatus } : o));
-    toast.success("Payment Status Updated!");
+  const updateOrderPaymentStatus = async (id: string, paymentStatus: Order['paymentStatus']) => {
+    try {
+      await fetch(`${API_URL}/api/orders/${id}/payment-status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentStatus })
+      });
+      setOrders(prev => prev.map(o => o.id === id ? { ...o, paymentStatus } : o));
+      toast.success("Payment Status Updated!");
+    } catch (err) {
+      toast.error("Failed to update payment status.");
+    }
   };
 
-  const cancelOrder = (id: string) => {
-    setOrders(prev => prev.map(o => o.id === id ? { ...o, status: 'Cancelled' } : o));
-    toast.success("Order Cancelled");
+  const cancelOrder = async (id: string) => {
+    try {
+      await fetch(`${API_URL}/api/orders/${id}/cancel`, { method: 'PUT' });
+      setOrders(prev => prev.map(o => o.id === id ? { ...o, status: 'Cancelled' } : o));
+      toast.success("Order Cancelled");
+    } catch (err) {
+      toast.error("Failed to cancel order.");
+    }
   };
 
-  const deleteOrder = (id: string) => {
-    setOrders(prev => prev.filter(o => o.id !== id));
-    toast.success("Order Deleted!");
+  const deleteOrder = async (id: string) => {
+    try {
+      await fetch(`${API_URL}/api/orders/${id}`, { method: 'DELETE' });
+      setOrders(prev => prev.filter(o => o.id !== id));
+      toast.success("Order Deleted!");
+    } catch (err) {
+      toast.error("Failed to delete order.");
+    }
   };
   
   const updateGlobalSettings = (s: Partial<GlobalSettings>) => {

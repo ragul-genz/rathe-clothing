@@ -164,7 +164,7 @@ const Checkout: React.FC = () => {
             notes: orderNotes
         };
 
-        addOrder(newOrder);
+        await addOrder(newOrder);
         clearCart();
         toast.success("Order Placed Successfully!");
         setLoading(false);
