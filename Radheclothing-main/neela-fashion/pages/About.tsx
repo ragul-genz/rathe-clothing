@@ -27,7 +27,7 @@ const About: React.FC = () => {
             <div className="md:w-1/2 relative">
                 <div className="absolute -top-10 -left-10 w-40 h-40 bg-sand-100 rounded-full opacity-50 z-0"></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1000" 
+                  src="/model_chudidhar_green.jpg" 
                   className="w-full shadow-2xl rounded-sm relative z-10 grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out" 
                   alt="Craftsmanship" 
                 />

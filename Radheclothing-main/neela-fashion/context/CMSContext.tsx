@@ -33,7 +33,7 @@ const DEFAULT_GLOBAL_SETTINGS: GlobalSettings = {
 const DEFAULT_ABOUT_CONTENT: AboutContent = { 
     title: 'Sacred Weaves & Timeless Grace', 
     description: 'At Radhe Clothing, we craft elegance inspired by heritage traditions, vibrant peacock motifs, and divine craftsmanship.', 
-    heroImage: '' 
+    heroImage: '/hero_krishna_blue.jpg' 
 };
 
 const DEFAULT_CONTACT_CONTENT: ContactContent = { 
