@@ -582,6 +582,28 @@ app.post('/api/payment/callback', validateWebhook); // New Webhook Route
 
 const PORT = process.env.PORT || 5000;
 
+const startServer = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Database connected successfully.');
+        await sequelize.sync();
+        
+        if (typeof seedAdmin === 'function') await seedAdmin();
+        if (typeof seedProducts === 'function') await seedProducts();
+        if (typeof seedCMS === 'function') await seedCMS();
+        if (typeof seedCategories === 'function') await seedCategories();
+        if (typeof seedReviews === 'function') await seedReviews();
+        if (typeof seedCart === 'function') await seedCart();
+        if (typeof seedOrders === 'function') await seedOrders();
+
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT} 🚀`);
+        });
+    } catch (error) {
+        console.error('Failed to start server:', error);
+    }
+};
+
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
     startServer();
 }
