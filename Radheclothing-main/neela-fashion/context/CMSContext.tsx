@@ -15,7 +15,7 @@ const DEFAULT_HOME_CONTENT: HomeContent = {
       { id: 1, text: "Absolutely stunning craftsmanship. The silk saree I ordered for the festival was beyond my expectations.", author: "Ananya S.", role: "Verified Buyer" },
       { id: 2, text: "Radhe Clothing has redefined luxury ethnic wear. The vibrant colors and embroidery are unmatched.", author: "Priya M.", role: "Fashion Enthusiast" },
       { id: 3, text: "Impeccable service and fabric quality. Will definitely buy again!", author: "Rohan K.", role: "Loyal Customer" },
-    ], trendImages: { large: '/original_chudidar_1.jpg', topRight: '/original_chudidar_2.jpg', bottomRight: '/green_floral_chudidar_1790158850906.jpg' }
+    ], trendImages: { large: '/original_chudidar_1.jpg', topRight: '/model_chudidhar_green.jpg', bottomRight: '/green_floral_chudidar_1790158850906.jpg' }
 };
 
 const DEFAULT_GLOBAL_SETTINGS: GlobalSettings = { 

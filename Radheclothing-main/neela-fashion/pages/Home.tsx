@@ -178,8 +178,8 @@ const Home: React.FC = () => {
                    <h3 className="text-3xl font-serif text-krishna-900 mb-3 relative z-10 font-bold">Everyday Grace</h3>
                    <p className="text-slate-600 mb-8 text-sm leading-relaxed max-w-xs relative z-10">Comfortable fabrics crafted for casual and festive occasions.</p>
                    <div className="flex gap-4 w-full overflow-hidden relative z-10">
-                      <img src={homeContent.trendImages.topRight || "/original_chudidar_2.jpg"} className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-2 transition-transform duration-500" alt="thumb" />
-                      <img src="/original_chudidar_3.jpg" className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-4 transition-transform duration-500 delay-100" alt="thumb" />
+                      <img src={homeContent.trendImages.topRight || "/model_chudidhar_green.jpg"} className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-2 transition-transform duration-500" alt="thumb" />
+                      <img src="/model_chudidhar_pink.jpg" className="w-24 h-32 object-cover rounded-sm shadow-md transform group-hover:-translate-y-4 transition-transform duration-500 delay-100" alt="thumb" />
                    </div>
               </div>
 
