@@ -1708,7 +1708,7 @@ const ManualOrderView = ({ setToast }: { setToast: (msg: string) => void }) => {
 
 // --- ORDER MANAGER ---
 const OrderManagerView = ({ setToast }: { setToast: (msg: string) => void }) => {
-    const { orders, updateOrderStatus, cancelOrder, deleteOrder, globalSettings, contactContent } = useCMS();
+    const { orders, updateOrderStatus, updateOrderPaymentStatus, cancelOrder, deleteOrder, globalSettings, contactContent } = useCMS();
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [showInvoice, setShowInvoice] = useState(false);
     const [showPackingSlip, setShowPackingSlip] = useState(false);
@@ -1841,6 +1841,48 @@ const OrderManagerView = ({ setToast }: { setToast: (msg: string) => void }) => 
                                             <p>{selectedOrder.shippingDetails.state} - {selectedOrder.shippingDetails.pincode}</p>
                                         </div>
                                     ) : <p className="text-gray-400 text-sm">Same as Billing</p>}
+                                </div>
+                            </div>
+                            
+                            <div className="bg-gray-50 border border-gray-100 p-4 rounded-lg">
+                                <h4 className="font-bold text-navy-900 uppercase text-xs tracking-widest mb-4 border-b pb-2">Payment Details</h4>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
+                                    <div>
+                                        <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Method</p>
+                                        <p className="font-bold text-navy-900">{selectedOrder.paymentMethod || 'COD'}</p>
+                                    </div>
+                                    {selectedOrder.paymentMethod === 'Prepaid (PhonePe)' && (
+                                        <>
+                                            <div>
+                                                <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Transaction ID</p>
+                                                <p className="font-mono font-medium text-navy-900">{selectedOrder.transactionId || 'N/A'}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] uppercase font-bold text-gray-400 mb-1">Payment Status</p>
+                                                <span className={`inline-block px-2 py-1 text-[10px] rounded-full font-bold uppercase tracking-wider ${
+                                                    selectedOrder.paymentStatus === 'Verified' ? 'bg-green-100 text-green-700' :
+                                                    selectedOrder.paymentStatus === 'Failed' ? 'bg-red-100 text-red-700' :
+                                                    'bg-yellow-100 text-yellow-700'
+                                                }`}>
+                                                    {selectedOrder.paymentStatus || 'Pending'}
+                                                </span>
+                                            </div>
+                                            {selectedOrder.paymentStatus !== 'Verified' && (
+                                                <div className="flex items-center">
+                                                    <button 
+                                                        onClick={() => {
+                                                            updateOrderPaymentStatus(selectedOrder.id, 'Verified');
+                                                            updateOrderStatus(selectedOrder.id, 'Processing');
+                                                            setSelectedOrder({ ...selectedOrder, paymentStatus: 'Verified', status: 'Processing' });
+                                                        }}
+                                                        className="bg-green-600 text-white px-4 py-2 rounded text-[10px] font-bold uppercase tracking-wider hover:bg-green-700 transition-colors"
+                                                    >
+                                                        Verify Payment
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             

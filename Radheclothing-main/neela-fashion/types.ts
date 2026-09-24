@@ -62,6 +62,8 @@ export interface Order {
   total: number;
   status: OrderStatus;
   paymentMethod: 'Prepaid' | 'COD' | 'Prepaid (PhonePe)'; 
+  paymentStatus?: 'Pending' | 'Verified' | 'Failed';
+  transactionId?: string;
   items: CartItem[];
   billingDetails: ShippingDetails;
   shippingDetails: ShippingDetails;

@@ -37,6 +37,8 @@ const Checkout: React.FC = () => {
     const [sameAsBilling, setSameAsBilling] = useState(true);
     const [saveAddressForNextTime, setSaveAddressForNextTime] = useState(false);
     const [orderNotes, setOrderNotes] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState<'COD' | 'Prepaid (PhonePe)'>('COD');
+    const [transactionId, setTransactionId] = useState('');
 
     const [billingForm, setBillingForm] = useState<ShippingDetails>({
         firstName: '', lastName: '', email: '', phone: '', address: '', city: '', district: '', state: 'Tamil Nadu', pincode: ''
@@ -138,6 +140,11 @@ const Checkout: React.FC = () => {
     const finalPayable = cartTotal + taxAmount + calculatedShipping;
 
     const handleFinalPayment = async () => {
+        if (paymentMethod === 'Prepaid (PhonePe)' && !transactionId.trim()) {
+            toast.error("Please enter the Transaction ID.");
+            return;
+        }
+
         setLoading(true);
         const orderId = 'ORD-' + Date.now().toString().slice(-6);
 
@@ -147,8 +154,10 @@ const Checkout: React.FC = () => {
             userName: `${billingForm.firstName} ${billingForm.lastName}`,
             date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
             total: Number(finalPayable.toFixed(2)),
-            status: 'Confirmed',
-            paymentMethod: 'Pay on Delivery / Direct Order',
+            status: paymentMethod === 'Prepaid (PhonePe)' ? 'Pending' : 'Confirmed',
+            paymentMethod: paymentMethod,
+            paymentStatus: paymentMethod === 'Prepaid (PhonePe)' ? 'Pending' : undefined,
+            transactionId: paymentMethod === 'Prepaid (PhonePe)' ? transactionId : undefined,
             items: cart,
             billingDetails: billingForm,
             shippingDetails: shippingForm,
@@ -224,15 +233,50 @@ const Checkout: React.FC = () => {
                                 <div className="bg-white p-8 shadow-sm border-t-4 border-krishna-800 animate-fade-in-up">
                                     <div className="flex items-center gap-2 mb-6"><div className="w-8 h-8 rounded-full bg-krishna-800 text-white flex items-center justify-center font-bold text-sm">3</div><h2 className="text-lg font-bold uppercase tracking-widest text-krishna-900">Order Method</h2></div>
                                     <div className="space-y-4 mb-8">
-                                        <label className="flex items-center justify-between p-4 border border-krishna-800 bg-krishna-50 cursor-pointer transition-colors rounded-sm">
+                                        <label className={`flex items-center justify-between p-4 border cursor-pointer transition-colors rounded-sm ${paymentMethod === 'COD' ? 'border-krishna-800 bg-krishna-50' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
                                             <div className="flex items-center">
-                                                <input type="radio" checked readOnly className="text-krishna-800 focus:ring-krishna-800" />
+                                                <input type="radio" checked={paymentMethod === 'COD'} onChange={() => setPaymentMethod('COD')} className="text-krishna-800 focus:ring-krishna-800" />
                                                 <div className="ml-3">
-                                                    <div className="flex items-center gap-2"><span className="font-bold text-krishna-900 text-base">Pay on Delivery / Direct Order</span><span className="bg-peacock-600 text-white text-[9px] px-2 py-0.5 rounded uppercase font-bold">Fast</span></div>
-                                                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-2"><CheckCircle size={14} className="text-peacock-600" /> Instant confirmation & digital receipt generation</p>
+                                                    <div className="flex items-center gap-2"><span className="font-bold text-krishna-900 text-base">Cash on Delivery (COD)</span></div>
+                                                    <p className="text-xs text-gray-500 mt-1">Pay when your order arrives</p>
                                                 </div>
                                             </div>
-                                            <div className="w-8 h-8 rounded-full bg-peacock-100 flex items-center justify-center text-peacock-700"><CheckCircle size={18} /></div>
+                                            {paymentMethod === 'COD' && <div className="w-8 h-8 rounded-full bg-peacock-100 flex items-center justify-center text-peacock-700"><CheckCircle size={18} /></div>}
+                                        </label>
+
+                                        <label className={`flex flex-col p-4 border cursor-pointer transition-colors rounded-sm ${paymentMethod === 'Prepaid (PhonePe)' ? 'border-krishna-800 bg-krishna-50' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
+                                            <div className="flex items-center justify-between w-full">
+                                                <div className="flex items-center">
+                                                    <input type="radio" checked={paymentMethod === 'Prepaid (PhonePe)'} onChange={() => setPaymentMethod('Prepaid (PhonePe)')} className="text-krishna-800 focus:ring-krishna-800" />
+                                                    <div className="ml-3">
+                                                        <div className="flex items-center gap-2"><span className="font-bold text-krishna-900 text-base">UPI / PhonePe</span><span className="bg-green-600 text-white text-[9px] px-2 py-0.5 rounded uppercase font-bold">Secure</span></div>
+                                                        <p className="text-xs text-gray-500 mt-1">Scan QR code and pay directly</p>
+                                                    </div>
+                                                </div>
+                                                {paymentMethod === 'Prepaid (PhonePe)' && <div className="w-8 h-8 rounded-full bg-peacock-100 flex items-center justify-center text-peacock-700"><CheckCircle size={18} /></div>}
+                                            </div>
+                                            
+                                            {paymentMethod === 'Prepaid (PhonePe)' && (
+                                                <div className="mt-6 ml-7 pl-1 border-l-2 border-peacock-200 animate-fade-in-up">
+                                                    <div className="flex flex-col items-center bg-white p-6 rounded shadow-inner border border-gray-100">
+                                                        <p className="text-sm font-bold text-krishna-900 mb-4 text-center">Scan the QR Code to Pay ₹{finalPayable.toFixed(2)}</p>
+                                                        <img src="/qr_code.png" alt="PhonePe QR Code" className="w-48 h-48 object-contain mb-4 border p-2 rounded" />
+                                                        <p className="text-xs text-gray-500 text-center mb-6">After completing the payment on your PhonePe/UPI app, please enter the Transaction ID below.</p>
+                                                        
+                                                        <div className="w-full">
+                                                            <label className="text-[10px] uppercase tracking-wider font-bold text-gray-500 block mb-2">Transaction ID / UTR No. *</label>
+                                                            <input 
+                                                                type="text" 
+                                                                required 
+                                                                value={transactionId} 
+                                                                onChange={(e) => setTransactionId(e.target.value)}
+                                                                placeholder="e.g. T2409... or 3245..." 
+                                                                className="w-full border border-gray-300 py-3 px-4 rounded outline-none focus:border-krishna-800 bg-white text-navy-900"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </label>
                                     </div>
 

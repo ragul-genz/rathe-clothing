@@ -83,6 +83,7 @@ interface CMSContextType {
 
   addOrder: (order: Order) => void; 
   updateOrderStatus: (id: string, status: Order['status']) => void; 
+  updateOrderPaymentStatus: (id: string, paymentStatus: Order['paymentStatus']) => void;
   cancelOrder: (id: string) => void;
   deleteOrder: (id: string) => void;
 
@@ -232,6 +233,11 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     toast.success("Order Status Updated!");
   };
 
+  const updateOrderPaymentStatus = (id: string, paymentStatus: Order['paymentStatus']) => {
+    setOrders(prev => prev.map(o => o.id === id ? { ...o, paymentStatus } : o));
+    toast.success("Payment Status Updated!");
+  };
+
   const cancelOrder = (id: string) => {
     setOrders(prev => prev.map(o => o.id === id ? { ...o, status: 'Cancelled' } : o));
     toast.success("Order Cancelled");
@@ -358,7 +364,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       products, orders, users, categories, shippingRules, reviews, globalSettings, homeContent, aboutContent, contactContent, adminCredentials,
       addProduct, updateProduct, deleteProduct, bulkDeleteProducts, importProducts,
       addCategory, updateCategory, deleteCategory, addSubCategory, deleteSubCategory, updateUserProfile, deleteUser, toggleUserStatus, addUser,
-      addOrder, updateOrderStatus, cancelOrder, deleteOrder,
+      addOrder, updateOrderStatus, updateOrderPaymentStatus, cancelOrder, deleteOrder,
       addReview, deleteReview,
       updateGlobalSettings, updateHomeContent, updateAboutContent, updateContactContent, updateAdminCredentials
     }}>
