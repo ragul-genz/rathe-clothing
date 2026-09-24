@@ -162,7 +162,7 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[800px]">
               {/* Large Feature */}
               <div className="md:col-span-2 md:row-span-2 relative overflow-hidden group rounded-sm cursor-pointer shadow-md">
-                  <img src={homeContent.trendImages.large || "/original_chudidar_1.jpg"} alt="Royal Edit" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" />
+                  <img src={homeContent.trendImages.large || "/model_chudidhar_pink.jpg"} alt="Royal Edit" className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-krishna-900/90 via-krishna-900/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500"></div>
                   <div className="absolute bottom-12 left-12 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       <h3 className="text-4xl font-serif italic mb-3">The Royal Edit</h3>
