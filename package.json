@@ -1,0 +1,8 @@
+{
+  "name": "radhe-clothing-root",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "cd Radheclothing-main/neela-fashion && npm install",
+    "build": "cd Radheclothing-main/neela-fashion && npm run build"
+  }
+}
