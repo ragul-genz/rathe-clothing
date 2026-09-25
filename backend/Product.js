@@ -159,7 +159,7 @@ const INITIAL_PRODUCTS = [
 
 const seedProducts = async () => {
     try {
-        await Product.sync({ alter: true }); 
+        await Product.sync({ force: false }); 
         
         // Check if manual column addition is needed for TiDB/MySQL strict mode
         try {

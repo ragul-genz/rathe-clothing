@@ -37,7 +37,7 @@ Cart.belongsTo(Product, { foreignKey: 'productId' });
 // 3. Sync Function
 const seedCart = async () => {
     try {
-        await Cart.sync({ alter: true });
+        await Cart.sync({ force: false });
         console.log('✅ Cart Table Synced!');
     } catch (error) {
         console.error('❌ Error syncing Cart:', error);

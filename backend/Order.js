@@ -61,7 +61,7 @@ const Order = sequelize.define('Order', {
 
 const seedOrders = async () => {
     try {
-        await Order.sync({ alter: true }); // Use alter: true to update table schema without deleting data
+        await Order.sync({ force: false }); // Use force: false to update table schema without deleting data
         console.log('✅ Order Table Synced!');
     } catch (error) {
         console.error('❌ Error syncing Orders:', error);
